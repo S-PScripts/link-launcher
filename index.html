@@ -2,11 +2,33 @@
 <html>
 <head>
   <title>Link Launcher</title>
+  <style>
+    .container {
+      display: flex;
+      align-items: center; /* Center vertically */
+    }
+
+    .linkInput {
+      display: block;
+      margin-bottom: 10px; /* Distance between inputs */
+    }
+    
+    .buttonGroup {
+      display: flex;
+      margin-left: 10px; /* Space between the first input and the buttons */
+    }
+
+    button {
+      margin-left: 5px; /* Space between buttons */
+    }
+  </style>
   <script>
     function launchLinks() {
       var inputs = document.getElementsByClassName('linkInput');
       for (var i = 0; i < inputs.length; i++) {
-        window.open(inputs[i].value, '_blank');
+        if (inputs[i].value) { // Check if the input value is not empty
+          window.open(inputs[i].value, '_blank');
+        }
       }
     }
 
@@ -27,9 +49,13 @@
   </script>
 </head>
 <body>
-  <input type="text" class="linkInput" placeholder="Enter link URL">
-  <button onclick="launchLinks()">Launch Links</button>
-  <button onclick="addBox()">Add Link Box</button>
-  <button onclick="removeBox()">Remove Link Box</button>
+  <div class="container">
+    <input type="text" class="linkInput" placeholder="Enter link URL">
+    <div class="buttonGroup">
+      <button onclick="launchLinks()">Launch Links</button>
+      <button onclick="addBox()">Add Link Box</button>
+      <button onclick="removeBox()">Remove Link Box</button>
+    </div>
+  </div>
 </body>
 </html>
