@@ -3,14 +3,33 @@
 <head>
   <title>Link Launcher</title>
   <script>
-    function launchLink() {
-      var url = document.getElementById("linkInput").value;
-      window.open(url, '_blank');
+    function launchLinks() {
+      var inputs = document.getElementsByClassName('linkInput');
+      for (var i = 0; i < inputs.length; i++) {
+        window.open(inputs[i].value, '_blank');
+      }
+    }
+
+    function addBox() {
+      var newInput = document.createElement('input');
+      newInput.type = 'text';
+      newInput.placeholder = 'Enter link URL';
+      newInput.className = 'linkInput';
+      document.body.appendChild(newInput);
+    }
+
+    function removeBox() {
+      var inputs = document.getElementsByClassName('linkInput');
+      if (inputs.length > 0) {
+        inputs[inputs.length - 1].remove();
+      }
     }
   </script>
 </head>
 <body>
-  <input type="text" id="linkInput" placeholder="Enter link URL">
-  <button onclick="launchLink()">Launch Link</button>
+  <input type="text" class="linkInput" placeholder="Enter link URL">
+  <button onclick="launchLinks()">Launch Links</button>
+  <button onclick="addBox()">Add Link Box</button>
+  <button onclick="removeBox()">Remove Link Box</button>
 </body>
 </html>
