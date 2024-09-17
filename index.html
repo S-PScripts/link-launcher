@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Link Launcher</title>
+  <script>
+    function launchLink() {
+      var url = document.getElementById("linkInput").value;
+      window.open(url, '_blank');
+    }
+  </script>
+</head>
+<body>
+  <input type="text" id="linkInput" placeholder="Enter link URL">
+  <button onclick="launchLink()">Launch Link</button>
+</body>
+</html>
