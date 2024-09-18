@@ -1,61 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Link Launcher</title>
-  <style>
-    .container {
-      display: flex;
-      align-items: center; /* Center vertically */
-    }
-
-    .linkInput {
-      display: block;
-      margin-bottom: 10px; /* Distance between inputs */
-    }
-    
-    .buttonGroup {
-      display: flex;
-      margin-left: 10px; /* Space between the first input and the buttons */
-    }
-
-    button {
-      margin-left: 5px; /* Space between buttons */
-    }
-  </style>
-  <script>
-    function launchLinks() {
-      var inputs = document.getElementsByClassName('linkInput');
-      for (var i = 0; i < inputs.length; i++) {
-        if (inputs[i].value) { // Check if the input value is not empty
-          window.open(inputs[i].value, '_blank');
-        }
-      }
-    }
-
-    function addBox() {
-      var newInput = document.createElement('input');
-      newInput.type = 'text';
-      newInput.placeholder = 'Enter link URL';
-      newInput.className = 'linkInput';
-      document.body.appendChild(newInput);
-    }
-
-    function removeBox() {
-      var inputs = document.getElementsByClassName('linkInput');
-      if (inputs.length > 0) {
-        inputs[inputs.length - 1].remove();
-      }
-    }
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Launcher</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        #boxes { margin-top: 10px; }
+        .link-box { margin-bottom: 10px; }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <input type="text" class="linkInput" placeholder="Enter link URL">
-    <div class="buttonGroup">
-      <button onclick="launchLinks()">Launch Links</button>
-      <button onclick="addBox()">Add Link Box</button>
-      <button onclick="removeBox()">Remove Link Box</button>
-    </div>
-  </div>
+
+    <h1>Link Launcher</h1>
+    <button id="addBox">Add Box</button>
+    <button id="launchLinks">Launch Links</button>
+
+    <div id="boxes"></div>
+
+    <script>
+        document.getElementById('addBox').addEventListener('click', function() {
+            // Create a new div for the box
+            const box = document.createElement('div');
+            box.className = 'link-box';
+
+            // Create an input for the link
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.placeholder = 'Enter a link';
+            box.appendChild(input);
+
+            // Create a remove button
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Remove Box';
+            removeButton.addEventListener('click', function() {
+                box.remove(); // Remove the box when clicked
+            });
+            box.appendChild(removeButton);
+
+            // Append the box to the boxes div
+            document.getElementById('boxes').appendChild(box);
+        });
+
+        document.getElementById('launchLinks').addEventListener('click', function() {
+            const inputs = document.querySelectorAll('.link-box input');
+            inputs.forEach(input => {
+                const url = input.value.trim();
+                if (url) {
+                    window.open(url, '_blank'); // Open the link in a new tab
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>
