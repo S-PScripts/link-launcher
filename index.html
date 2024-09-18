@@ -14,7 +14,8 @@
 
     <h1>Link Launcher</h1>
     <button id="addBox">Add Box</button>
-    <button id="launchLinks">Launch Links</button>
+    <button id="launchLinks">Launch All Links</button>
+    <button id="removeAllBoxes">Remove All Boxes</button>
 
     <div id="boxes"></div>
 
@@ -29,6 +30,17 @@
             input.type = 'text';
             input.placeholder = 'Enter a link';
             box.appendChild(input);
+
+            // Create a button to launch the link
+            const launchButton = document.createElement('button');
+            launchButton.textContent = 'Launch Link';
+            launchButton.addEventListener('click', function() {
+                const url = input.value.trim();
+                if (url) {
+                    window.open(url, '_blank'); // Open the link in a new tab
+                }
+            });
+            box.appendChild(launchButton);
 
             // Create a remove button
             const removeButton = document.createElement('button');
@@ -50,6 +62,11 @@
                     window.open(url, '_blank'); // Open the link in a new tab
                 }
             });
+        });
+
+        document.getElementById('removeAllBoxes').addEventListener('click', function() {
+            const boxesContainer = document.getElementById('boxes');
+            boxesContainer.innerHTML = ''; // Remove all boxes
         });
     </script>
 
