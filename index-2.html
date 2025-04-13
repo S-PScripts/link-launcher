@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Launcher</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; position: relative; }
+        #boxes { margin-top: 10px; }
+        .link-box { margin-bottom: 10px; }
+
+        /* Watermark styles */
+        .watermark {
+            position: fixed; /* Changed from absolute to fixed */
+            bottom: 10px;
+            right: 10px;
+            opacity: 0.5;
+            font-size: 12px;
+            color: #888888; /* Light grey color */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Link Launcher</h1>
+    <button id="addBox">Add Box</button>
+    <button id="launchLinks">Launch All Links</button>
+    <button id="removeAllBoxes">Remove All Boxes</button>
+
+    <div id="boxes"></div>
+
+    <!-- Watermark -->
+    <div class="watermark">S-PScripts</div>
+
+    <script>
+        document.getElementById('addBox').addEventListener('click', function() {
+            // Create a new div for the box
+            const box = document.createElement('div');
+            box.className = 'link-box';
+
+            // Create an input for the link
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.placeholder = 'Enter a link';
+            box.appendChild(input);
+
+            // Create a button to launch the link
+            const launchButton = document.createElement('button');
+            launchButton.textContent = 'Launch Link';
+            launchButton.addEventListener('click', function() {
+                const url = input.value.trim();
+                if (url) {
+                    window.location.href = url; // Open the link in the same tab
+                }
+            });
+            box.appendChild(launchButton);
+
+            // Create a remove button
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Remove Box';
+            removeButton.addEventListener('click', function() {
+                box.remove(); // Remove the box when clicked
+            });
+            box.appendChild(removeButton);
+
+            // Append the box to the boxes div
+            document.getElementById('boxes').appendChild(box);
+        });
+
+        document.getElementById('launchLinks').addEventListener('click', function() {
+            const inputs = document.querySelectorAll('.link-box input');
+            inputs.forEach(input => {
+                const url = input.value.trim();
+                if (url) {
+                    window.location.href = url; // Open all links in the same tab sequentially
+                }
+            });
+        });
+
+        document.getElementById('removeAllBoxes').addEventListener('click', function() {
+            const boxesContainer = document.getElementById('boxes');
+            boxesContainer.innerHTML = ''; // Remove all boxes
+        });
+    </script>
+
+</body>
+</html>
